@@ -27,7 +27,7 @@ set the "paint" for the paintbrush
 */	
 	public void setPaint(Paint paint)
 	{
-   
+		this.paint = paint;
    
 	}
 
@@ -37,7 +37,7 @@ set the "paint" for the paintbrush
 */
 	public Paint getPaint()
 	{
-		return Gold;
+		return paint;
 	}
 	
    
@@ -46,7 +46,9 @@ set the "paint" for the paintbrush
    */
 	public void setBrighter()
 	{		
-
+		PaintBrighter x = new PaintBrighter(paint);
+		this.paint = x;
+	
 	}
 
 
@@ -55,7 +57,8 @@ set the "paint" for the paintbrush
    */
 	public void setDarker()
 	{
-		
+		PaintDarker y = new PaintDarker(paint);
+		this.paint = y;
 	}
 
 
@@ -65,6 +68,7 @@ set the "paint" for the paintbrush
 	public void paint(int x, int y, Paint[][] mesh)
 	{
 		
+		mesh[x][y] = paint;
 	}
 
 	
@@ -74,7 +78,7 @@ set the "paint" for the paintbrush
 */
 	public void pointMode()
 	{
-		mode= BrushMode.paintMode;
+		mode = BrushMode.paintMode;
 	}
 
 	public void fillMode()
