@@ -65,6 +65,8 @@ set the "paint" for the paintbrush
    /*
       paints the mesh, using the current paint and mode at point x,y
    */
+	
+	//SET UP SMALLER FXNS FOR EACH MODE
 	public void paint(int x, int y, Paint[][] mesh)
 	{
 		System.out.println("x "+ x);
@@ -109,12 +111,78 @@ set the "paint" for the paintbrush
 		
 		if(mode == BrushMode.pattern1Mode)
 		{
-			mesh[x][y] = paint;
+			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(Gold.getColor())) {
+				if (x % 2 == 0)
+				{
+					mesh[x][y] = Gold;
+				}
+				else
+				{
+					mesh[x][y] = White;
+				}
+			}
+			
+			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
+				
+				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(Gold.getColor()))
+				{
+					paint(x-1, y, mesh);
+				}
+				
+				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(Gold.getColor()))
+				{
+					paint(x, y-1, mesh);
+				}
+				
+				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(Gold.getColor()))
+				{
+					paint(x+1, y, mesh);
+				}
+				
+				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(Gold.getColor()))
+				{
+					paint(x, y+1, mesh);
+				}
+			
+			}
 		}
 		
 		if(mode == BrushMode.pattern2Mode)
 		{
-			mesh[x][y] = paint;
+			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(Gold.getColor())) {
+				if (y % 2 == 0)
+				{
+					mesh[x][y] = Gold;
+				}
+				else
+				{
+					mesh[x][y] = White;
+				}
+			}
+			
+			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
+				
+				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(Gold.getColor()))
+				{
+					paint(x-1, y, mesh);
+				}
+				
+				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(Gold.getColor()))
+				{
+					paint(x, y-1, mesh);
+				}
+				
+				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(Gold.getColor()))
+				{
+					paint(x+1, y, mesh);
+				}
+				
+				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(Gold.getColor()))
+				{
+					paint(x, y+1, mesh);
+				}
+			
+			}
 		}
 	}
 
