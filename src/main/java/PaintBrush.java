@@ -67,8 +67,55 @@ set the "paint" for the paintbrush
    */
 	public void paint(int x, int y, Paint[][] mesh)
 	{
+		System.out.println("x "+ x);
+		System.out.println("y "+ y);
 		
-		mesh[x][y] = paint;
+		if(mode == BrushMode.paintMode)
+		{
+			mesh[x][y] = paint;
+		}
+		
+		if(mode == BrushMode.fillMode)
+		{
+			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(paint.getColor())) {
+				
+				mesh[x][y] = paint;
+			}
+			
+			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
+				
+				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(paint.getColor()))
+				{
+					paint(x-1, y, mesh);
+				}
+				
+				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(paint.getColor()))
+				{
+					paint(x, y-1, mesh);
+				}
+				
+				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(paint.getColor()))
+				{
+					paint(x+1, y, mesh);
+				}
+				
+				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(paint.getColor()))
+				{
+					paint(x, y+1, mesh);
+				}
+			
+			}
+		}
+		
+		if(mode == BrushMode.pattern1Mode)
+		{
+			mesh[x][y] = paint;
+		}
+		
+		if(mode == BrushMode.pattern2Mode)
+		{
+			mesh[x][y] = paint;
+		}
 	}
 
 	
