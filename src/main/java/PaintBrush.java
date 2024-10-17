@@ -71,6 +71,7 @@ set the "paint" for the paintbrush
 	{
 		System.out.println("x "+ x);
 		System.out.println("y "+ y);
+		Color oColor = mesh[x][y].getColor();
 		
 		if(mode == BrushMode.paintMode)
 		{
@@ -79,113 +80,132 @@ set the "paint" for the paintbrush
 		
 		if(mode == BrushMode.fillMode)
 		{
-			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(paint.getColor())) {
-				
-				mesh[x][y] = paint;
-			}
-			
-			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
-				
-				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(paint.getColor()))
-				{
-					paint(x-1, y, mesh);
-				}
-				
-				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(paint.getColor()))
-				{
-					paint(x, y-1, mesh);
-				}
-				
-				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(paint.getColor()))
-				{
-					paint(x+1, y, mesh);
-				}
-				
-				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(paint.getColor()))
-				{
-					paint(x, y+1, mesh);
-				}
-			
-			}
+			recursiveFill(x,y,mesh, oColor);
 		}
 		
 		if(mode == BrushMode.pattern1Mode)
 		{
-			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(Gold.getColor())) {
-				if (x % 2 == 0)
-				{
-					mesh[x][y] = Gold;
-				}
-				else
-				{
-					mesh[x][y] = White;
-				}
-			}
-			
-			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
-				
-				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(Gold.getColor()))
-				{
-					paint(x-1, y, mesh);
-				}
-				
-				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(Gold.getColor()))
-				{
-					paint(x, y-1, mesh);
-				}
-				
-				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(Gold.getColor()))
-				{
-					paint(x+1, y, mesh);
-				}
-				
-				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(Gold.getColor()))
-				{
-					paint(x, y+1, mesh);
-				}
-			
-			}
+			recursiveP1(x,y,mesh,oColor);
 		}
 		
 		if(mode == BrushMode.pattern2Mode)
 		{
-			if (!mesh[x][y].getColor().equals(White.getColor()) && !mesh[x][y].getColor().equals(Gold.getColor())) {
-				if (y % 2 == 0)
-				{
-					mesh[x][y] = Gold;
-				}
-				else
-				{
-					mesh[x][y] = White;
-				}
-			}
-			
-			if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < 50 && y + 1 < 50) {
-				
-				if (!mesh[x-1][y].getColor().equals(White.getColor()) && !mesh[x-1][y].getColor().equals(Gold.getColor()))
-				{
-					paint(x-1, y, mesh);
-				}
-				
-				if (!mesh[x][y-1].getColor().equals(White.getColor()) && !mesh[x][y-1].getColor().equals(Gold.getColor()))
-				{
-					paint(x, y-1, mesh);
-				}
-				
-				if (!mesh[x+1][y].getColor().equals(White.getColor()) && !mesh[x+1][y].getColor().equals(Gold.getColor()))
-				{
-					paint(x+1, y, mesh);
-				}
-				
-				if (!mesh[x][y + 1].getColor().equals(White.getColor()) && !mesh[x][y+1].getColor().equals(Gold.getColor()))
-				{
-					paint(x, y+1, mesh);
-				}
-			
-			}
+			recursiveP2(x,y,mesh,oColor);
 		}
 	}
 
+	private void recursiveFill(int x, int y, Paint[][]mesh, Color oColor)
+	{
+		if (mesh[x][y].getColor().equals(oColor)) {
+			
+			mesh[x][y] = paint;
+		}
+		
+		if(x > 0 && y > 0 && x < mesh.length - 1 && y < mesh[0].length - 1) {
+			
+			
+			if (mesh[x-1][y].getColor().equals(oColor))
+			{
+				recursiveFill(x-1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y-1].getColor().equals(oColor))
+			{
+				recursiveFill(x, y-1, mesh, oColor);
+			}
+			
+			if (mesh[x+1][y].getColor().equals(oColor))
+			{
+				recursiveFill(x+1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y + 1].getColor().equals(oColor))
+			{
+				recursiveFill(x, y+1, mesh, oColor);
+			}
+		
+		}
+	}
+	
+	private void recursiveP1(int x, int y, Paint[][]mesh, Color oColor)
+	{
+		if (mesh[x][y].getColor().equals(oColor)) {
+			
+			if (y % 2 == 0)
+			{
+				mesh[x][y] = Gold;
+			}
+			else
+			{
+				mesh[x][y] = White;
+			}
+		}
+		
+		if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < mesh.length && y + 1 < mesh[0].length) {
+			
+			
+			if (mesh[x-1][y].getColor().equals(oColor))
+			{
+				recursiveP1(x-1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y-1].getColor().equals(oColor))
+			{
+				recursiveP1(x, y-1, mesh, oColor);
+			}
+			
+			if (mesh[x+1][y].getColor().equals(oColor))
+			{
+				recursiveP1(x+1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y + 1].getColor().equals(oColor))
+			{
+				recursiveP1(x, y+1, mesh, oColor);
+			}
+		
+		}
+	}
+	
+	private void recursiveP2(int x, int y, Paint[][]mesh, Color oColor)
+	{
+		if (mesh[x][y].getColor().equals(oColor)) {
+			
+			if (x % 2 == 0)
+			{
+				mesh[x][y] = Gold;
+			}
+			else
+			{
+				mesh[x][y] = White;
+			}
+		}
+		
+		if(x - 1 >= 0 && y - 1 >= 0 && x + 1 < mesh.length && y + 1 < mesh[0].length) {
+			
+			
+			if (mesh[x-1][y].getColor().equals(oColor))
+			{
+				recursiveP2(x-1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y-1].getColor().equals(oColor))
+			{
+				recursiveP2(x, y-1, mesh, oColor);
+			}
+			
+			if (mesh[x+1][y].getColor().equals(oColor))
+			{
+				recursiveP2(x+1, y, mesh, oColor);
+			}
+			
+			if (mesh[x][y + 1].getColor().equals(oColor))
+			{
+				recursiveP2(x, y+1, mesh, oColor);
+			}
+		
+		}
+	}
 	
 	
 /*
